@@ -24,6 +24,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.security.Provider;
 
+import com.sun.security.jgss.InquireType;
 import org.ietf.jgss.ChannelBinding;
 import org.ietf.jgss.GSSCredential;
 import org.ietf.jgss.GSSException;
@@ -119,7 +120,12 @@ public final class GSSUPContextSpi
         integ = tf;
     }
 
-    public void setChannelBinding(ChannelBinding cb) throws GSSException
+   public void requestDelegPolicy(final boolean state) throws GSSException
+   {
+      throw new RuntimeException("NYI: org.jacorb.security.sas.GSSUPContextSpi.requestDelegPolicy");
+   }
+
+   public void setChannelBinding(ChannelBinding cb) throws GSSException
     {
         channelBinding = cb;
     }
@@ -149,7 +155,12 @@ public final class GSSUPContextSpi
         return anonymity;
     }
 
-    public boolean isTransferable() throws GSSException
+   public boolean getDelegPolicyState()
+   {
+      throw new RuntimeException("NYI: org.jacorb.security.sas.GSSUPContextSpi.getDelegPolicyState");
+   }
+
+   public boolean isTransferable() throws GSSException
     {
         return true;
     }
@@ -302,10 +313,15 @@ public final class GSSUPContextSpi
         mechOid = null;
     }
 
-    /*
-     * NOTE : This method was added for a jdk1.6.x port because of a
-     * compilation error from this class.
-     */
+   public Object inquireSecContext(final InquireType type) throws GSSException
+   {
+      throw new RuntimeException("NYI: org.jacorb.security.sas.GSSUPContextSpi.inquireSecContext");
+   }
+
+   /*
+   * NOTE : This method was added for a jdk1.6.x port because of a
+   * compilation error from this class.
+   */
     public boolean isInitiator ()
     {
         return false;
