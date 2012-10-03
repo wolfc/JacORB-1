@@ -3062,7 +3062,12 @@ public class CDRInputStream
         int savedIndex = index;
         int chunk_size_tag = read_long();
 
-        if (!sunInteropFix || chunk_size_tag > 0 && chunk_size_tag < MAX_BLOCK_SIZE)
+        if (chunk_size_tag < 0)
+        {
+            // dirty hack to read away an end-tag
+            chunk_end_pos = pos;
+        }
+        else if (!sunInteropFix || chunk_size_tag > 0 && chunk_size_tag < MAX_BLOCK_SIZE)
         {
             // valid chunk size: set the ending position of the chunk
             chunk_end_pos = pos + chunk_size_tag;
